@@ -13,8 +13,10 @@ namespace TrackerApp.API.Endpoints;
 
 public class AccountEndpoints : IEndpointsDefinition
 {
-    public void MapEndpoints(RouteGroupBuilder builder)
+    public void MapEndpoints(IEndpointRouteBuilder routeBuilder, string prefix, string swaggerGroup)
     {
+        var builder = routeBuilder.MapGroup(prefix).WithTags(swaggerGroup);
+        
         builder.MapPost("/signin", Signin);
         builder.MapPost("/login", Login);
         builder.MapGet("/user-info", GetUserInfo)

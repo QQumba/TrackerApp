@@ -8,8 +8,10 @@ namespace TrackerApp.API.Endpoints;
 
 public class LibraryEndpoints : IEndpointsDefinition
 {
-    public void MapEndpoints(RouteGroupBuilder builder)
+    public void MapEndpoints(IEndpointRouteBuilder routeBuilder, string prefix, string swaggerGroup)
     {
+        var builder = routeBuilder.MapGroup(prefix).WithTags(swaggerGroup);
+        
         builder.MapGet("books/all", GetBooks)
             .Produces<Book[]>()
             .WithOpenApi("Get books", "Returns all available books");
