@@ -11,7 +11,11 @@ public class LibraryEndpoints : IEndpointsDefinition
     public void MapEndpoints(IEndpointRouteBuilder routeBuilder, string prefix, string swaggerGroup)
     {
         var builder = routeBuilder.MapGroup(prefix).WithTags(swaggerGroup);
-        
+        MapEndpoints(builder);
+    }
+
+    public void MapEndpoints(RouteGroupBuilder builder)
+    {
         builder.MapGet("books/all", GetBooks)
             .Produces<Book[]>()
             .WithOpenApi("Get books", "Returns all available books");

@@ -6,6 +6,7 @@ using TrackerApp.API.Auth;
 using TrackerApp.API.Endpoints;
 using TrackerApp.API.Endpoints.Infrastructure;
 using TrackerApp.API.Features.Issues;
+using TrackerApp.API.Services;
 using TrackerApp.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,6 +20,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddData(builder.Configuration);
 
+builder.Services.AddScoped<AccountService>();
 builder.Services.AddIssuesFeature();
 
 var app = builder.Build();
@@ -51,6 +53,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.MapEndpoints<IssueEndpoints>("api/issues", "Issues")
-    .MapEndpoints<LibraryEndpoints>("api/library", "Library");
+    .MapEndpoints<LibraryEndpoints>("api/library", "Library")
+    .MapEndpoints<AccountEndpoints>("api/account", "Account");
 
 app.Run();

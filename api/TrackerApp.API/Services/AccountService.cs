@@ -4,17 +4,11 @@ using TrackerApp.Data;
 
 namespace TrackerApp.API.Services;
 
-public class UserRepository
+public class AccountService
 {
-    private readonly Dictionary<string, SigninDto> _users;
+    private readonly Dictionary<string, SigninDto> _users = new();
 
-    private readonly AuthContext _authContext;
-
-    public UserRepository(AuthContext authContext, Database database)
-    {
-        _authContext = authContext;
-        _users = database;
-    }
+    private readonly AuthContext _authContext = new();
 
     public SigninDto? CreateUser(SigninDto signinDto)
     {

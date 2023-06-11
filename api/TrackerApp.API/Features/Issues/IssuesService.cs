@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using TrackerApp.API.Features.Issues.Models;
@@ -18,9 +19,9 @@ public class IssuesService
         _context = context;
     }
 
-    public async Task<Issue> CreateIssue(CreateIssueDto issueDto)
+    public async Task<Issue> CreateIssue(IssueCreateDto dto)
     {
-        var issue = _context.Issue.Add(issueDto.ToEntity()).Entity;
+        var issue = _context.Issue.Add(dto.ToEntity()).Entity;
         await _context.SaveChangesAsync();
 
         return issue;
@@ -40,5 +41,16 @@ public class IssuesService
         }
 
         return issue;
+    }
+
+    public async Task<Result<int, NotFoundError>> DeleteIssue(long id)
+    {
+        var deletedRecordsCount = await _context.Issue.Where(x => x.IssueId == id).ExecuteDeleteAsync();
+        if (deletedRecordsCount == 0)
+        {
+            return new NotFoundError($"Issue with id: {id} not found");
+        }
+
+        return deletedRecordsCount;
     }
 }

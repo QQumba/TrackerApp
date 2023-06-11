@@ -2,7 +2,7 @@
 
 namespace TrackerApp.API.Features.Issues.Models;
 
-public record CreateIssueDto(string Title, string Description)
+public record IssueCreateDto(string Title, string Description)
 {
     public Issue ToEntity()
     {

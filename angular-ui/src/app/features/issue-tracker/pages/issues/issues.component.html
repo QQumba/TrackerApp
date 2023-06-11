@@ -1,1 +1,29 @@
-<p>issues works!</p>
+<p>issues</p>
+
+<div *ngFor="let issue of issues">
+  <div>
+    id: {{issue.issueId}}
+  </div>
+  <div>
+    title: {{issue.title}}
+  </div>
+  <div>
+    description: {{issue.description}}
+  </div>
+  <div>
+    <button (click)="deleteIssue(issue.issueId)">Delete</button>
+  </div>
+  <hr>
+</div>
+
+<!-- <form [formGroup]="issueForm" (ngSubmit)="createIssue()">
+  <input class="mb-4" type="text" placeholder="title" formControlName="title">
+  <input class="mb-4" type="text" placeholder="description" formControlName="description">
+  <button type="submit" [disabled]="!issueForm.valid">Create new issue</button>
+</form> -->
+
+<form [formGroup]="issueForm" (ngSubmit)="createIssue()">
+  <app-form-group></app-form-group>
+  <input class="mb-4" type="text" placeholder="description" formControlName="description">
+  <button type="submit" [disabled]="!issueForm.valid">Create new issue</button>
+</form>

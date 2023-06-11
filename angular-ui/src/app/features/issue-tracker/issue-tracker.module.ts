@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { IssuesComponent } from './pages/issues/issues.component';
 import { IssueTrackerRoutingModule } from './issue-tracker-routing.module';
 import { IssueCardComponent } from './components/issue-card/issue-card.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   declarations: [IssuesComponent, IssueCardComponent],
-  imports: [CommonModule, IssueTrackerRoutingModule],
+  imports: [SharedModule, IssueTrackerRoutingModule],
 })
 export class IssueTrackerModule {}

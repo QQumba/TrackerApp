@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Routing;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Routing;
 
 namespace TrackerApp.API.Endpoints.Infrastructure;
 
@@ -9,7 +11,8 @@ public static class EndpointDefinitionExtensions
         where T : IEndpointsDefinition, new()
     {
         var t = new T();
-        t.MapEndpoints(routeBuilder, prefix, swaggerGroup);
+        var builder = routeBuilder.MapGroup(prefix).WithTags(swaggerGroup);
+        t.MapEndpoints(builder);
 
         return routeBuilder;
     }

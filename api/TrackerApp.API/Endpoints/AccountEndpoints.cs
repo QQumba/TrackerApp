@@ -16,16 +16,20 @@ public class AccountEndpoints : IEndpointsDefinition
     public void MapEndpoints(IEndpointRouteBuilder routeBuilder, string prefix, string swaggerGroup)
     {
         var builder = routeBuilder.MapGroup(prefix).WithTags(swaggerGroup);
-        
+        MapEndpoints(builder);
+    }
+
+    public void MapEndpoints(RouteGroupBuilder builder)
+    {
         builder.MapPost("/signin", Signin);
         builder.MapPost("/login", Login);
         builder.MapGet("/user-info", GetUserInfo)
             .RequireAuthorization();
     }
 
-    public static async Task<IResult> Signin(SigninDto signinDto, HttpContext context, UserRepository repository)
+    public static async Task<IResult> Signin(SigninDto signinDto, HttpContext context, AccountService service)
     {
-        var user = repository.CreateUser(signinDto);
+        var user = service.CreateUser(signinDto);
         if (user is null)
         {
             return Results.BadRequest("User already signed in. Try login instead.");
@@ -35,9 +39,9 @@ public class AccountEndpoints : IEndpointsDefinition
         return Results.Ok(signinDto);
     }
 
-    public static async Task<IResult> Login(SigninDto signinDto, HttpContext context, UserRepository repository)
+    public static async Task<IResult> Login(SigninDto signinDto, HttpContext context, AccountService service)
     {
-        var user = repository.GetUserByLogin(signinDto.Login);
+        var user = service.GetUserByLogin(signinDto.Login);
 
         if (user is null || user.Password != signinDto.Password)
         {
@@ -48,9 +52,9 @@ public class AccountEndpoints : IEndpointsDefinition
         return Results.Ok();
     }
 
-    public static IResult GetUserInfo(UserRepository repository)
+    public static IResult GetUserInfo(AccountService service)
     {
-        var user = repository.GetUser();
+        var user = service.GetUser();
         return Results.Ok(user);
     }
 
