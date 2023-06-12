@@ -1,6 +1,6 @@
-﻿create table if not exists tracker_app.issue
+﻿create table if not exists issue
 (
-    issue_id          bigserial
+    id                bigserial
         constraint pk_issue primary key,
     title             text      not null,
     description       text      not null,

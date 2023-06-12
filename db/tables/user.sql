@@ -1,7 +1,7 @@
 ﻿-- not in use
-create table if not exists tracker_app.user
+create table if not exists public.user
 (
-    user_id           bigserial
+    id                bigserial
         constraint pk_user_id primary key,
     email             text      not null,
     password          text      not null,

@@ -47,8 +47,10 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSpa(x =>
     {
-        const string angularUri = "http://localhost:4200";
-        x.UseProxyToSpaDevelopmentServer(angularUri);
+        var spaConfigSection = app.Configuration.GetSection("SpaDevelopmentServer");
+        var spaServer = spaConfigSection["SpaServer"];
+        var spaUrl = spaConfigSection[$"Url:{spaServer}"];
+        x.UseProxyToSpaDevelopmentServer(spaUrl!);
     });
 }
 

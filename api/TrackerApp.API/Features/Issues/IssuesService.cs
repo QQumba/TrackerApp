@@ -32,12 +32,12 @@ public class IssuesService
         return await _context.Issue.ToListAsync();
     }
 
-    public async Task<Result<Issue, NotFoundError>> GetIssueById(long issueId)
+    public async Task<Result<Issue, NotFoundError>> GetIssueById(long id)
     {
-        var issue = await _context.Issue.FirstOrDefaultAsync(x => x.IssueId == issueId);
+        var issue = await _context.Issue.FirstOrDefaultAsync(x => x.Id == id);
         if (issue is null)
         {
-            return new NotFoundError($"Issue with id: {issueId} not found");
+            return new NotFoundError($"Issue with id: {id} not found");
         }
 
         return issue;
@@ -45,7 +45,7 @@ public class IssuesService
 
     public async Task<Result<int, NotFoundError>> DeleteIssue(long id)
     {
-        var deletedRecordsCount = await _context.Issue.Where(x => x.IssueId == id).ExecuteDeleteAsync();
+        var deletedRecordsCount = await _context.Issue.Where(x => x.Id == id).ExecuteDeleteAsync();
         if (deletedRecordsCount == 0)
         {
             return new NotFoundError($"Issue with id: {id} not found");

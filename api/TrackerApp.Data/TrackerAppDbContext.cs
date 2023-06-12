@@ -31,8 +31,8 @@ public class TrackerAppDbContext : DbContext
         return base.SaveChangesAsync(cancellationToken);
     }
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        modelBuilder.HasDefaultSchema("tracker_app");
-    }
+    // protected override void OnModelCreating(ModelBuilder modelBuilder)
+    // {
+    //     modelBuilder.HasDefaultSchema("tracker_app");
+    // }
 }

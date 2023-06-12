@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using FluentValidation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
@@ -26,10 +27,18 @@ public class IssueEndpoints : IEndpointsDefinition
         builder.MapDelete("{id:long}", DeleteIssue);
     }
 
-    private static async Task<IResult> CreateIssue(IssueCreateDto issueCreateDto, IssuesService service)
+    private static async Task<IResult> CreateIssue(IssueCreateDto issueCreateDto,
+        IssuesService service,
+        IValidator<IssueCreateDto> validator)
     {
+        var validationResult = validator.Validate(issueCreateDto);
+        if (!validationResult.IsValid)
+        {
+            return Results.BadRequest(validationResult.Errors);
+        }
+        
         var issue = await service.CreateIssue(issueCreateDto);
-        return Results.Created($"{issue.IssueId}", issue);
+        return Results.Created($"{issue.Id}", issue);
     }
 
     private static async Task<IResult> GetAllIssues(IssuesService service)
