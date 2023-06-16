@@ -1,11 +1,12 @@
+using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using TrackerApp.API.Auth;
 using TrackerApp.API.Endpoints;
 using TrackerApp.API.Endpoints.Infrastructure;
 using TrackerApp.API.Features.Issues;
+using TrackerApp.API.Features.Tags;
 using TrackerApp.API.Services;
 using TrackerApp.Data;
 
@@ -13,6 +14,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.ConfigureHttpJsonOptions(o => 
+    o.SerializerOptions.Converters.Add(new JsonStringEnumConverter()));
 
 // builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
 // .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme);
@@ -22,6 +25,7 @@ builder.Services.AddData(builder.Configuration);
 
 builder.Services.AddScoped<AccountService>();
 builder.Services.AddIssuesFeature();
+builder.Services.AddTagsFeature();
 
 var app = builder.Build();
 
@@ -55,7 +59,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.MapEndpoints<IssueEndpoints>("api/issues", "Issues")
-    .MapEndpoints<LibraryEndpoints>("api/library", "Library")
-    .MapEndpoints<AccountEndpoints>("api/account", "Account");
+    .MapEndpoints<TagEndpoints>("api/tags", "Tags");
 
 app.Run();

@@ -11,6 +11,10 @@ public class TrackerAppDbContext : DbContext
 
     public DbSet<Issue> Issue { get; set; } = null!;
 
+    public DbSet<Tag> Tags { get; set; } = null!;
+
+    public DbSet<IssueTag> IssueTags { get; set; } = null!;
+
     public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
         var entries = ChangeTracker
@@ -31,8 +35,8 @@ public class TrackerAppDbContext : DbContext
         return base.SaveChangesAsync(cancellationToken);
     }
 
-    // protected override void OnModelCreating(ModelBuilder modelBuilder)
-    // {
-    //     modelBuilder.HasDefaultSchema("tracker_app");
-    // }
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(TrackerAppDbContext).Assembly);
+    }
 }

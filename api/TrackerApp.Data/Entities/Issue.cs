@@ -10,4 +10,6 @@ public class Issue : AuditEntity
     public string Title { get; set; } = null!;
 
     public string Description { get; set; } = null!;
+
+    public IList<Tag> Tags { get; set; } = new List<Tag>();
 }

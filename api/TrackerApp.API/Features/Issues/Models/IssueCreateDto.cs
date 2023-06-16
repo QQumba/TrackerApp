@@ -1,8 +1,9 @@
-﻿using TrackerApp.Data.Entities;
+﻿using System.Collections.Generic;
+using TrackerApp.Data.Entities;
 
 namespace TrackerApp.API.Features.Issues.Models;
 
-public record IssueCreateDto(string Title, string Description)
+public record IssueCreateDto(string Title, string Description, List<long> TagIds)
 {
     public Issue ToEntity()
     {

@@ -5,4 +5,10 @@ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
     <changeSet author="nick" id="add-issue-table" runAlways="true">
         <sqlFile path="../tables/issue.sql" relativeToChangelogFile="true"/>
     </changeSet>
+    <changeSet author="nick" id="add-tag-table" runAlways="true">
+        <sqlFile path="../tables/tag.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+    <changeSet author="nick" id="add-issue-tag-table" runAlways="true">
+        <sqlFile path="../tables/issue_tag.sql" relativeToChangelogFile="true"/>
+    </changeSet>
 </databaseChangeLog>

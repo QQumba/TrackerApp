@@ -19,20 +19,33 @@ public class IssuesService
         _context = context;
     }
 
-    public async Task<Issue> CreateIssue(IssueCreateDto dto)
+    public async Task<Result<IssueDto, NotFoundError>> CreateIssue(IssueCreateDto dto)
     {
         var issue = _context.Issue.Add(dto.ToEntity()).Entity;
+
+        var tagsExists = await _context.Tags.AnyAsync(x => dto.TagIds.Contains(x.Id));
+        if (!tagsExists)
+        {
+            return new NotFoundError("Specified tags do not exist");
+        }
+
+        var issueTags = dto.TagIds.Select(x =>
+            new IssueTag { IssueId = issue.Id, TagId = x });
+        _context.IssueTags.AddRange(issueTags);
+
         await _context.SaveChangesAsync();
 
-        return issue;
+        return new IssueDto(issue);
     }
 
-    public async Task<List<Issue>> GetAllIssues()
+    public async Task<IEnumerable<IssueDto>> GetAllIssues()
     {
-        return await _context.Issue.ToListAsync();
+        var issues = await _context.Issue.Include(x => x.Tags).ToListAsync();
+
+        return issues.Select(x => new IssueDto(x));
     }
 
-    public async Task<Result<Issue, NotFoundError>> GetIssueById(long id)
+    public async Task<Result<IssueDto, NotFoundError>> GetIssueById(long id)
     {
         var issue = await _context.Issue.FirstOrDefaultAsync(x => x.Id == id);
         if (issue is null)
@@ -40,9 +53,10 @@ public class IssuesService
             return new NotFoundError($"Issue with id: {id} not found");
         }
 
-        return issue;
+        return new IssueDto(issue);
     }
 
+    // TODO: why return int???
     public async Task<Result<int, NotFoundError>> DeleteIssue(long id)
     {
         var deletedRecordsCount = await _context.Issue.Where(x => x.Id == id).ExecuteDeleteAsync();

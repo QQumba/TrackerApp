@@ -1,5 +1,5 @@
 import { API_URL } from '@/utils/constants';
-import { Issue, IssueCreate } from './issues.model';
+import { Issue, IssueCreate } from './models/issues';
 
 export async function getAllIssues(): Promise<Issue[]> {
   return fetch(API_URL + 'issues').then((response) => response.json());
@@ -25,7 +25,5 @@ export async function createIssue(issue: IssueCreate): Promise<Issue> {
 export async function deleteIssue(issueId: number): Promise<boolean> {
   return fetch(API_URL + 'issues/' + issueId, {
     method: 'DELETE',
-  })
-    .then((response) => response.text())
-    .then((data) => data === '1');
+  }).then((_) => true);
 }
