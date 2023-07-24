@@ -3,9 +3,9 @@
     id                bigserial
         constraint pk_issue_tag primary key,
     issue_id          bigint
-        constraint fk_issue_tag_issue_id references issue (id),
+        constraint fk_issue_tag_issue_id references issue (id) on delete cascade,
     tag_id            bigint
-        constraint fk_issue_tag_tag_id references tag (id),
+        constraint fk_issue_tag_tag_id references tag (id) on delete cascade,
     created_date_time timestamp not null,
     updated_date_time timestamp not null,
     constraint k_issue_tag unique (issue_id, tag_id)

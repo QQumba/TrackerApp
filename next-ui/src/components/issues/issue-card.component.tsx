@@ -13,13 +13,16 @@ export function IssueCard({
   };
 
   return (
-    <div key={issue.id} className="m-4 rounded-xl border p-4 flex flex-grow justify-between">
+    <div
+      key={issue.id}
+      className="mb-4 flex w-full flex-grow justify-between rounded-xl border bg-gray-100 p-4"
+    >
       <span>
         <div>issueId: {issue.id}</div>
         <div>title: {issue.title}</div>
         <div>description: {issue.description}</div>
         <div>
-          {issue.tags.map((tag) => (
+          {issue.tags?.map((tag) => (
             <span
               className="mr-1 inline-block rounded-sm bg-amber-400 px-1 text-sm capitalize"
               key={tag.id}
@@ -30,7 +33,10 @@ export function IssueCard({
         </div>
       </span>
       <span>
-        <button onClick={deleteIssue} className="rounded border-2 p-1">
+        <button
+          onClick={deleteIssue}
+          className="rounded border-2 bg-white p-1 transition-colors hover:bg-red-600 hover:text-white"
+        >
           Delete
         </button>
       </span>

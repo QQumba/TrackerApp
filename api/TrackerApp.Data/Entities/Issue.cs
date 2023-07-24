@@ -11,5 +11,5 @@ public class Issue : AuditEntity
 
     public string Description { get; set; } = null!;
 
-    public IList<Tag> Tags { get; set; } = new List<Tag>();
+    public IList<Tag>? Tags { get; set; } = new List<Tag>();
 }

@@ -21,21 +21,22 @@ public class IssuesService
 
     public async Task<Result<IssueDto, NotFoundError>> CreateIssue(IssueCreateDto dto)
     {
-        var issue = _context.Issue.Add(dto.ToEntity()).Entity;
-
-        var tagsExists = await _context.Tags.AnyAsync(x => dto.TagIds.Contains(x.Id));
-        if (!tagsExists)
+        List<Tag>? tags = null;
+        if (dto.TagIds is { Count: > 0 })
         {
-            return new NotFoundError("Specified tags do not exist");
+            tags = await _context.Tags.Where(x => dto.TagIds.Contains(x.Id)).ToListAsync();
+            var isTagMissing = tags.Count < dto.TagIds.Count;
+            if (isTagMissing)
+            {
+                return new NotFoundError("Specified tags do not exist");
+            }
         }
 
-        var issueTags = dto.TagIds.Select(x =>
-            new IssueTag { IssueId = issue.Id, TagId = x });
-        _context.IssueTags.AddRange(issueTags);
-
+        var issue = dto.ToEntity();
+        issue.Tags = tags;
+        var createdIssue = _context.Add(issue).Entity;
         await _context.SaveChangesAsync();
-
-        return new IssueDto(issue);
+        return new IssueDto(createdIssue);
     }
 
     public async Task<IEnumerable<IssueDto>> GetAllIssues()

@@ -1,6 +1,7 @@
 import { createIssue } from '@/pages/issues/issues-api';
 import { Issue, IssueCreate } from '@/pages/issues/models/issues';
 import { useForm } from 'react-hook-form';
+import FormInput from '../form/form-input.component';
 
 export default function IssueCreateForm({
   onIssueCreated,
@@ -11,43 +12,63 @@ export default function IssueCreateForm({
     register,
     formState: { errors },
     handleSubmit,
-  } = useForm<IssueCreate>();
+  } = useForm<IssueCreate>({ criteriaMode: 'all' });
+
   const submit = (data: IssueCreate) => {
     createIssue(data).then(onIssueCreated);
     console.log(data);
   };
 
+  function onCreateIssue() {
+    const issue: IssueCreate = {
+      title: 'test',
+      description: 'created with next',
+      tags: [],
+    };
+
+    createIssue(issue).then(onIssueCreated);
+  }
+
   return (
     <form
       method="post"
       onSubmit={handleSubmit(submit)}
-      className="m-auto flex max-w-xl flex-col justify-center rounded-xl border p-4 font-montserrat shadow-lg"
+      className="mb-4 flex w-full flex-col justify-center rounded-xl border p-4 font-montserrat shadow-lg"
     >
-      <h2 className="text-lg font-bold">Create issue with form</h2>
+      <div className="flex justify-between">
+        <span className="self-center text-lg font-bold">
+          Create issue with form
+        </span>
+        <span>
+          <button
+            onClick={onCreateIssue}
+            className="rounded border-2 p-1 px-4 transition-colors hover:border-lime-500 hover:bg-lime-500"
+          >
+            Create new issue
+          </button>
+        </span>
+      </div>
 
-      <label>
-        Title <span className="text-red-500">*</span>
-      </label>
-      <input
+      <FormInput
+        label="Title"
+        placeholder="Title"
+        error={errors.title}
         {...register('title', {
           required: 'Title is required',
           minLength: {
             value: 3,
             message: 'Title should be at least 3 characters long',
           },
+          validate: {
+            isTitle: (value) => value === 'title' || 'Title should be "title"',
+          },
         })}
-        type="text"
-        placeholder="title"
-        className="rounded border-2 p-1 outline-slate-400"
-      />
-      {errors.title && (
-        <p className="text-xs text-red-500">{errors.title?.message}</p>
-      )}
+      ></FormInput>
 
-      <label>
-        Description <span className="text-red-500">*</span>
-      </label>
-      <input
+      <FormInput
+        label="Description"
+        placeholder="Description"
+        error={errors.description}
         {...register('description', {
           required: 'Description is required',
           minLength: {
@@ -55,13 +76,7 @@ export default function IssueCreateForm({
             message: 'Description should be at least 3 characters long',
           },
         })}
-        type="text"
-        placeholder="description"
-        className="rounded border-2 p-1 outline-slate-400"
-      />
-      {errors.description && (
-        <p className="text-xs text-red-500">{errors.description?.message}</p>
-      )}
+      ></FormInput>
 
       <button
         type="submit"

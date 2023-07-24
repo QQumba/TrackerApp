@@ -1,0 +1,36 @@
+﻿1,CEN-CappingAlert-1
+2,CEN-LateVisitAlertTask-1
+3,Resupply Task
+4,CEN-DepotPDFDOTask-1
+5,CEN-FCSDepotDOTask-1
+6,CEN-ExpiryDateAlertTask-1
+7,CEN-ExpiryDateCheckTask-1
+8,CEN-MaterialInTransitSiteTask-1
+9,CEN-MaterialInTransitDepotTask-1
+10,CEN-LowDepotStockAlertTask-1
+11,CEN-DeliveryDateReminderTask-1
+12,CEN-MRMInitialStockUpateTask-1
+13,CEN-DepotPDFDOTask-3
+14,CEN-FCSDepotDOTask-3
+15,CEN-MaterialInTransitSiteTask-2
+16,CEN-StudyQueriesAlerts-W-1
+20,NVS-DHLDOTask-1
+21,NVS-BlindedDrugSupplyMgmtAlertTask-1
+22,NVS-LateVisitAlertTask-1
+23,NVS-CappingAlert-1
+24,Resupply Task
+25,NVS-PatientDetailsUpdateAlertTask-1
+26,NVS-LowDepotStockAlertTask-1
+27,NVS-ExpiryDateAlertTask-1
+28,NVS-MaterialInTransitSiteUSSMOTask-1
+29,NVS-InternalExpiryDateCheckTask-1
+30,NVS-MaterialInTransitDepotTask-1
+31,NVS-NovartisDOTask-1
+32,NVS-FisherDOTask-1
+33,NVS-DHLASNTask-1
+34,NVS-WeeklySiteSummaryEmailRptTask-1
+35,NVS-InCountryDrugReleaseEmailRptTask-1
+36,NVS-PatientVisitOverviewEmailRptTask-1
+37,NVS-LateConsignmentSummaryEmailRptTask-1
+38,NVS-InitialAndResupplyTask-1
+39,CCL-SubjectDetailsUpdateAlertTask-1
