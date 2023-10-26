@@ -14,4 +14,15 @@ public class FakeTests
             throw new Exception();
         }
     }
+
+    public void TestSubtraction()
+    {
+        var actual = 2 - 3;
+        var expected = -1;
+        
+        if (actual != expected)
+        {
+            throw new Exception();
+        }
+    }
 }
