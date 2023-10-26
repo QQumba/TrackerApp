@@ -11,6 +11,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lib", "lib", "{C07E090B-804
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrackerApp.Result", "lib\TrackerApp.Result\TrackerApp.Result.csproj", "{19053A9D-B2BE-4091-BC05-5F4FAB008F73}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FakeUnitTestProj", "FakeUnitTestProj\FakeUnitTestProj.csproj", "{BFC7B04E-FA71-4D43-810C-28E86E8DB2ED}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +31,10 @@ Global
 		{19053A9D-B2BE-4091-BC05-5F4FAB008F73}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{19053A9D-B2BE-4091-BC05-5F4FAB008F73}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{19053A9D-B2BE-4091-BC05-5F4FAB008F73}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BFC7B04E-FA71-4D43-810C-28E86E8DB2ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFC7B04E-FA71-4D43-810C-28E86E8DB2ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BFC7B04E-FA71-4D43-810C-28E86E8DB2ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BFC7B04E-FA71-4D43-810C-28E86E8DB2ED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
