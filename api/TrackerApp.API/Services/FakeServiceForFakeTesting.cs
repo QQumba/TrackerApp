@@ -6,4 +6,9 @@ public class FakeServiceForFakeTesting
     {
         return text + text;
     }
+    
+    public string Echo(string text)
+    {
+        return text;
+    }
 }
